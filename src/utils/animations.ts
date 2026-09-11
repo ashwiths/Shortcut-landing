@@ -1,9 +1,7 @@
-import { animate, stagger } from 'animejs';
-
 /**
- * Smoothly scrolls to a target element or Y coordinate using anime.js animate()
+ * Smoothly scrolls to a target element or Y coordinate using native hardware-accelerated scrolling
  */
-export function smoothScrollTo(target: string | number, offset = 80, duration = 850) {
+export function smoothScrollTo(target: string | number, offset = 80, _duration = 850) {
   let targetY = 0;
 
   if (typeof target === 'number') {
@@ -19,12 +17,10 @@ export function smoothScrollTo(target: string | number, offset = 80, duration = 
     targetY = Math.max(0, elementPosition - offset);
   }
 
-  const scrollContainer = document.scrollingElement || document.documentElement;
-
-  animate(scrollContainer, {
-    scrollTop: targetY,
-    duration: duration,
-    ease: 'inOutCubic',
+  // Native smooth scroll runs directly on the browser compositor thread (zero JS lag)
+  window.scrollTo({
+    top: targetY,
+    behavior: 'smooth',
   });
 }
 
@@ -60,18 +56,27 @@ export function initSmoothScrollLinks() {
 }
 
 /**
- * Initializes IntersectionObserver to trigger anime.js reveal animations
- * as elements scroll into view
+ * Initializes IntersectionObserver for buttery-smooth scroll reveal transitions
  */
 export function initScrollRevealAnimations() {
   if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return () => {};
 
   const animatedElements = document.querySelectorAll<HTMLElement>('.reveal-on-scroll');
 
-  // Set initial state
+  // Check if elements are already in initial viewport to avoid flash
   animatedElements.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      // Already in viewport, show immediately without lagging
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      return;
+    }
+
     el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
+    el.style.transform = 'translateY(20px)';
+    el.style.willChange = 'opacity, transform';
+    el.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
   });
 
   const observer = new IntersectionObserver(
@@ -79,47 +84,31 @@ export function initScrollRevealAnimations() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const el = entry.target as HTMLElement;
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
 
-          // Check if parent container has staggered children
-          const staggerGroup = el.querySelectorAll<HTMLElement>('.stagger-item');
-
-          if (staggerGroup.length > 0) {
-            animate(el, {
-              opacity: [0, 1],
-              translateY: [24, 0],
-              duration: 700,
-              ease: 'outCubic',
-            });
-
-            animate(staggerGroup, {
-              opacity: [0, 1],
-              translateY: [20, 0],
-              delay: stagger(90, { start: 150 }),
-              duration: 650,
-              ease: 'outCubic',
-            });
-          } else {
-            animate(el, {
-              opacity: [0, 1],
-              translateY: [24, 0],
-              duration: 750,
-              ease: 'outCubic',
-            });
-          }
+          // Clean up willChange after transition ends to free GPU memory
+          setTimeout(() => {
+            el.style.willChange = 'auto';
+          }, 650);
 
           observer.unobserve(el);
         }
       });
     },
     {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.05,
+      rootMargin: '0px 0px -20px 0px',
     }
   );
 
-  animatedElements.forEach((el) => observer.observe(el));
+  animatedElements.forEach((el) => {
+    if (el.style.opacity === '0') {
+      observer.observe(el);
+    }
+  });
 
   return () => {
-    animatedElements.forEach((el) => observer.unobserve(el));
+    observer.disconnect();
   };
 }

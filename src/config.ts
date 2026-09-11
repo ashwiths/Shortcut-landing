@@ -30,7 +30,7 @@ export function handleDownload(e?: React.MouseEvent) {
   // Trigger download link directly
   const link = document.createElement("a");
   link.href = DOWNLOAD_URL;
-  link.setAttribute("download", "ChromeAccountSwitcherSetup.exe");
+  link.setAttribute("download", "ChromeAccountSwitcher.zip");
   link.target = "_blank";
   link.rel = "noopener noreferrer";
   document.body.appendChild(link);
