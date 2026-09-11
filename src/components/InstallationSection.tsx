@@ -1,6 +1,6 @@
 import React from 'react';
 import { Terminal, Download, CheckCircle2, Play, Wrench, Puzzle, Zap } from 'lucide-react';
-import installVideo from '../assets/install.mp4';
+import installGif from '../assets/Install.gif';
 import { handleDownload } from '../config';
 
 export const InstallationSection: React.FC = () => {
@@ -22,7 +22,7 @@ export const InstallationSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 2-Column Grid: Installation Steps & Visual Video Walkthrough */}
+        {/* 2-Column Grid: Installation Steps & Visual GIF Walkthrough */}
         <div className="reveal-on-scroll mt-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column (6 cols): 4 Detailed Steps */}
@@ -41,7 +41,7 @@ export const InstallationSection: React.FC = () => {
                     </h3>
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-blue-100 text-blue-800 border border-blue-200">
                       <Play className="w-2.5 h-2.5 fill-current text-blue-600" />
-                      Video Walkthrough
+                      GIF Guide
                     </span>
                   </div>
                   <p className="text-sm text-slate-600 leading-relaxed">
@@ -58,7 +58,7 @@ export const InstallationSection: React.FC = () => {
                       <span>Download ChromeAccountSwitcher.zip</span>
                     </button>
                     <span className="text-xs font-mono text-slate-500 flex items-center gap-1">
-                      ↳ Refer to <strong className="text-blue-700 font-semibold">video walkthrough</strong> beside
+                      ↳ Refer to <strong className="text-blue-700 font-semibold">GIF preview</strong> beside
                     </span>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ export const InstallationSection: React.FC = () => {
                     Open Chrome Account Switcher and you're ready!
                   </p>
 
-                  {/* Keyboard Shortcuts List */}
+                  {/* Keyboard Shortcuts List with clean alignment */}
                   <div className="mt-4 pt-3.5 border-t border-slate-100">
                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 block mb-2.5">
                       Use:
@@ -170,7 +170,7 @@ export const InstallationSection: React.FC = () => {
 
           </div>
 
-          {/* Right Column (6 cols): Visual Video Walkthrough */}
+          {/* Right Column (6 cols): Visual GIF Walkthrough Card */}
           <div className="lg:col-span-6 lg:sticky lg:top-24">
             <div className="rounded-2xl bg-[#0b101b] border border-slate-700/80 shadow-2xl overflow-hidden backdrop-blur-md">
               
@@ -188,27 +188,21 @@ export const InstallationSection: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                    Video Guide
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    GIF Guide
                   </span>
                 </div>
               </div>
 
-              {/* Video Player Container */}
-              <div className="relative bg-black/80 p-2 sm:p-3 flex items-center justify-center">
-                <video
-                  src={installVideo}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  controls
+              {/* The GIF Container */}
+              <div className="relative bg-black/60 p-2 sm:p-3 flex items-center justify-center">
+                <img
+                  src={installGif}
+                  alt="Chrome Account Switcher Setup - Installation Walkthrough"
                   className="w-full h-auto max-h-[440px] rounded-xl object-contain shadow-lg border border-slate-800"
-                >
-                  <source src={installVideo} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                  loading="lazy"
+                />
               </div>
 
               {/* Bottom Details */}
@@ -216,7 +210,7 @@ export const InstallationSection: React.FC = () => {
                 <div className="text-xs text-slate-300 space-y-0.5">
                   <div className="font-semibold text-white flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Video Walkthrough: Download & Setup</span>
+                    <span>Visual Walkthrough: Download & Setup</span>
                   </div>
                   <p className="text-slate-400">
                     Extract package, run installer, and load extension to start switching.
