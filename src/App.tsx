@@ -1,122 +1,83 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { Navbar } from './components/Navbar';
+import { HeroSection } from './components/HeroSection';
+import { ProblemSection } from './components/ProblemSection';
+import { FeaturesSection } from './components/FeaturesSection';
+import { ShortcutsSection } from './components/ShortcutsSection';
+import { ScrollContainerDemo } from './components/ScrollContainerDemo';
+import { HowItWorksSection } from './components/HowItWorksSection';
+import { DownloadSection } from './components/DownloadSection';
+import { InstallationSection } from './components/InstallationSection';
+import { PrivacySection } from './components/PrivacySection';
+import { FaqSection } from './components/FaqSection';
+import { Footer } from './components/Footer';
+import { PrivacyModal } from './components/PrivacyModal';
+import { initSmoothScrollLinks, initScrollRevealAnimations } from './utils/animations';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+
+  // Initialize anime.js smooth scrolling and scroll reveals
+  useEffect(() => {
+    const cleanupScrollLinks = initSmoothScrollLinks();
+    const cleanupScrollReveal = initScrollRevealAnimations();
+
+    return () => {
+      cleanupScrollLinks();
+      cleanupScrollReveal();
+    };
+  }, []);
+
+  // Support direct routing via #privacy or /privacy
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#privacy-policy' || window.location.pathname === '/privacy') {
+        setPrivacyModalOpen(true);
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const openPrivacyModal = () => {
+    setPrivacyModalOpen(true);
+  };
+
+  const closePrivacyModal = () => {
+    setPrivacyModalOpen(false);
+    if (window.location.hash === '#privacy-policy') {
+      history.replaceState(null, '', ' ');
+    }
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen bg-[#FDF6E3] text-slate-900 font-sans selection:bg-blue-600/25 selection:text-blue-900 antialiased">
+      {/* Navigation */}
+      <Navbar onOpenPrivacy={openPrivacyModal} />
 
-      <div className="ticks"></div>
+      {/* Main Sections */}
+      <main id="main-content">
+        <HeroSection />
+        <ProblemSection />
+        <FeaturesSection />
+        <ShortcutsSection />
+        <ScrollContainerDemo />
+        <HowItWorksSection />
+        <DownloadSection />
+        <InstallationSection />
+        <PrivacySection onOpenPrivacy={openPrivacyModal} />
+        <FaqSection />
+      </main>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {/* Footer */}
+      <Footer onOpenPrivacy={openPrivacyModal} />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {/* Privacy Policy Modal */}
+      <PrivacyModal isOpen={privacyModalOpen} onClose={closePrivacyModal} />
+    </div>
+  );
 }
 
-export default App
+export default App;
