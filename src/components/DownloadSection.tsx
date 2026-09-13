@@ -1,5 +1,5 @@
 import React from 'react';
-import { handleDownload, APP_CONFIG } from '../config';
+import { handleDownload, APP_CONFIG, DOWNLOAD_URL, DOWNLOAD_FILENAME } from '../config';
 import { Download, ShieldCheck, Check, Sparkles } from 'lucide-react';
 
 export const DownloadSection: React.FC = () => {
@@ -12,11 +12,11 @@ export const DownloadSection: React.FC = () => {
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Inner Card Container */}
-        <div className="relative rounded-3xl bg-gradient-to-b from-[#0f172a] via-[#0d1424] to-[#090e18] border border-blue-500/30 p-8 sm:p-14 shadow-2xl shadow-black/80 overflow-hidden">
+        <div className="relative rounded-3xl bg-[#29394A] border-2 border-slate-600/70 ring-1 ring-white/15 p-8 sm:p-14 shadow-2xl shadow-slate-950/30 overflow-hidden">
           
           {/* Subtle top badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-semibold uppercase tracking-wider mb-6">
+            <Sparkles className="w-3.5 h-3.5 text-blue-300" />
             <span>Windows Desktop Application</span>
           </div>
 
@@ -32,9 +32,11 @@ export const DownloadSection: React.FC = () => {
 
           {/* Large CTA Button */}
           <div className="mt-10 flex flex-col items-center justify-center">
-            <button
+            <a
+              href={DOWNLOAD_URL}
+              download={DOWNLOAD_FILENAME}
               onClick={handleDownload}
-              className="group relative inline-flex items-center justify-center gap-3.5 px-9 py-5 text-lg font-bold text-white bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-2xl shadow-2xl shadow-blue-600/35 hover:shadow-blue-600/50 transition-all duration-200 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(255,252,189)]"
+              className="group relative inline-flex items-center justify-center gap-3.5 px-9 py-5 text-lg font-bold text-white bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-2xl shadow-2xl shadow-blue-600/35 hover:shadow-blue-600/50 transition-all duration-200 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(255,252,189)] cursor-pointer"
             >
               <svg
                 className="w-5 h-5 fill-current text-white"
@@ -45,7 +47,7 @@ export const DownloadSection: React.FC = () => {
               </svg>
               <span>Download for Windows</span>
               <Download className="w-5 h-5 transition-transform group-hover:translate-y-0.5" />
-            </button>
+            </a>
 
             {/* Secondary text */}
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-slate-400 font-medium">
@@ -61,17 +63,17 @@ export const DownloadSection: React.FC = () => {
           </div>
 
           {/* Value Checklist */}
-          <div className="mt-10 pt-8 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-3xl mx-auto">
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
-              <Check className="w-4 h-4 text-blue-400 flex-shrink-0" />
+          <div className="mt-10 pt-8 border-t border-white/15 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-3xl mx-auto">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-200">
+              <Check className="w-4 h-4 text-blue-300 flex-shrink-0" />
               <span>No Google password required</span>
             </div>
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
-              <Check className="w-4 h-4 text-blue-400 flex-shrink-0" />
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-200">
+              <Check className="w-4 h-4 text-blue-300 flex-shrink-0" />
               <span>Preserves tabs and windows</span>
             </div>
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
-              <Check className="w-4 h-4 text-blue-400 flex-shrink-0" />
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-200">
+              <Check className="w-4 h-4 text-blue-300 flex-shrink-0" />
               <span>Auto-detects up to 10 profiles</span>
             </div>
           </div>

@@ -44,7 +44,13 @@ export function initSmoothScrollLinks() {
       const targetEl = document.querySelector(href);
       if (targetEl) {
         e.preventDefault();
-        smoothScrollTo(href, 80);
+        if (href === '#download') {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          history.pushState(null, '', '#download');
+        } else {
+          smoothScrollTo(href, 80);
+          history.pushState(null, '', href);
+        }
       }
     }
   };

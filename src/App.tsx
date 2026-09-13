@@ -4,12 +4,9 @@ import { HeroSection } from './components/HeroSection';
 import { ProblemSection } from './components/ProblemSection';
 import { FeaturesSection } from './components/FeaturesSection';
 import { ShortcutsSection } from './components/ShortcutsSection';
-import { ScrollContainerDemo } from './components/ScrollContainerDemo';
 import { HowItWorksSection } from './components/HowItWorksSection';
 import { DownloadSection } from './components/DownloadSection';
 import { InstallationSection } from './components/InstallationSection';
-import { PrivacySection } from './components/PrivacySection';
-import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { PrivacyModal } from './components/PrivacyModal';
 import { initSmoothScrollLinks, initScrollRevealAnimations } from './utils/animations';
@@ -63,12 +60,9 @@ function App() {
         <ProblemSection />
         <FeaturesSection />
         <ShortcutsSection />
-        <ScrollContainerDemo />
         <HowItWorksSection />
         <DownloadSection />
         <InstallationSection />
-        <PrivacySection onOpenPrivacy={openPrivacyModal} />
-        <FaqSection />
       </main>
 
       {/* Footer */}

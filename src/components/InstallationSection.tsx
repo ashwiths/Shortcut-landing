@@ -1,7 +1,7 @@
 import React from 'react';
 import { Terminal, Download, CheckCircle2, Play, Wrench, Puzzle, Zap } from 'lucide-react';
 import installGif from '../assets/Install.gif';
-import { handleDownload } from '../config';
+import { scrollToDownload } from '../config';
 
 export const InstallationSection: React.FC = () => {
   return (
@@ -45,18 +45,18 @@ export const InstallationSection: React.FC = () => {
                     </span>
                   </div>
                   <p className="text-sm text-slate-600 leading-relaxed">
-                    Download <code className="font-mono text-xs bg-slate-100 text-blue-700 px-1.5 py-0.5 rounded font-semibold border border-slate-200">ChromeAccountSwitcher.zip</code> and extract it to a folder on your Windows PC.
+                    Download <code className="font-mono text-xs bg-slate-100 text-blue-700 px-1.5 py-0.5 rounded font-semibold border border-slate-200">ChromeAccountSwitcherSetup.exe</code> and run the installer on your Windows PC.
                   </p>
 
                   <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={handleDownload}
-                      className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm transition-colors"
+                    <a
+                      href="#download"
+                      onClick={scrollToDownload}
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm transition-colors cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5" />
-                      <span>Download ChromeAccountSwitcher.zip</span>
-                    </button>
+                      <span>Download ChromeAccountSwitcherSetup.exe</span>
+                    </a>
                     <span className="text-xs font-mono text-slate-500 flex items-center gap-1">
                       ↳ Refer to <strong className="text-blue-700 font-semibold">GIF preview</strong> beside
                     </span>
@@ -217,14 +217,14 @@ export const InstallationSection: React.FC = () => {
                   </p>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={handleDownload}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-md transition-all active:scale-[0.98] flex-shrink-0"
+                <a
+                  href="#download"
+                  onClick={scrollToDownload}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-md transition-all active:scale-[0.98] flex-shrink-0 cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Download .zip</span>
-                </button>
+                  <span>Download Installer (.exe)</span>
+                </a>
               </div>
 
             </div>

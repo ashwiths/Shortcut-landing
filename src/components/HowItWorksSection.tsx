@@ -1,33 +1,57 @@
 import React from 'react';
-import { Download, Wrench, Globe, Zap } from 'lucide-react';
+import { Download, Wrench, Puzzle, Zap } from 'lucide-react';
+
+interface WorkflowStep {
+  num: string;
+  title: string;
+  description: React.ReactNode;
+  icon: React.ReactNode;
+  detail: string;
+}
 
 export const HowItWorksSection: React.FC = () => {
-  const steps = [
+  const steps: WorkflowStep[] = [
     {
       num: '01',
-      title: 'Download',
-      description: 'Download the Chrome Account Switcher Windows installer.',
+      title: 'Download & Run Setup',
+      description: (
+        <>
+          Download <code className="font-mono text-xs bg-slate-100 text-blue-700 px-1 py-0.5 rounded border border-slate-200">ChromeAccountSwitcherSetup.exe</code> and run the installer on your PC.
+        </>
+      ),
       icon: <Download className="w-5 h-5 text-blue-600" />,
-      detail: 'Lightweight setup executable',
+      detail: 'Standalone Windows Installer',
     },
     {
       num: '02',
-      title: 'Install',
-      description: 'Run the installer and follow the simple setup process.',
+      title: 'Run Helper',
+      description: (
+        <>
+          Run <strong className="text-slate-800 font-semibold">Windows Helper Installer</strong> to configure native Chrome messaging host integration.
+        </>
+      ),
       icon: <Wrench className="w-5 h-5 text-indigo-600" />,
-      detail: 'Configures native Windows helper',
+      detail: 'One-click native helper setup',
     },
     {
       num: '03',
-      title: 'Open Chrome',
-      description: 'Launch Chrome with your existing profiles.',
-      icon: <Globe className="w-5 h-5 text-sky-600" />,
-      detail: 'Auto-detects active profiles',
+      title: 'Load Extension',
+      description: (
+        <>
+          Open <code className="font-mono text-xs bg-slate-100 text-slate-800 px-1 py-0.5 rounded border border-slate-200">chrome://extensions</code>, enable Developer mode, and Load unpacked.
+        </>
+      ),
+      icon: <Puzzle className="w-5 h-5 text-sky-600" />,
+      detail: 'Select ChromeExtension folder',
     },
     {
       num: '04',
-      title: 'Switch',
-      description: 'Use Alt + 1 through Alt + 0 to quickly switch between profiles.',
+      title: 'Switch Profiles',
+      description: (
+        <>
+          Press <kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-300 font-semibold text-slate-800">Alt + 1</kbd> through <kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-300 font-semibold text-slate-800">Alt + 0</kbd> to jump between accounts instantly.
+        </>
+      ),
       icon: <Zap className="w-5 h-5 text-emerald-600" />,
       detail: 'Instant keyboard switching',
     },
@@ -71,13 +95,14 @@ export const HowItWorksSection: React.FC = () => {
                 <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">
                   {step.title}
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <div className="text-sm text-slate-600 leading-relaxed">
                   {step.description}
-                </p>
+                </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-200">
-                <span className="text-xs font-mono text-slate-500">
+              <div className="mt-6 pt-4 border-t border-slate-200/80">
+                <span className="text-xs font-mono text-slate-500 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500/80"></span>
                   {step.detail}
                 </span>
               </div>

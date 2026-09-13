@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from './Logo';
-import { handleDownload } from '../config';
+import { scrollToDownload } from '../config';
 import { Download, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
@@ -24,7 +24,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPrivacy }) => {
     { label: 'Shortcuts', href: '#shortcuts' },
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'Installation', href: '#installation' },
-    { label: 'FAQ', href: '#faq' },
   ];
 
   return (
@@ -69,25 +68,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPrivacy }) => {
           {/* Right: Actions (Balanced flex-1 to keep center pill perfectly centered) */}
           <div className="flex-1 flex justify-end items-center gap-3">
             <div className="hidden md:flex items-center gap-3">
-              <button
-                onClick={handleDownload}
-                className="group relative inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-md shadow-blue-600/20 hover:shadow-blue-600/30 transition-all duration-200 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDF6E3] whitespace-nowrap"
+              <a
+                href="#download"
+                onClick={scrollToDownload}
+                className="group relative inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-md shadow-blue-600/20 hover:shadow-blue-600/30 transition-all duration-200 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDF6E3] whitespace-nowrap cursor-pointer"
               >
                 <Download className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
                 <span>Download</span>
                 <span className="text-xs bg-white/20 px-1.5 py-0.5 rounded font-mono">Win</span>
-              </button>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2">
-              <button
-                onClick={handleDownload}
+              <a
+                href="#download"
+                onClick={scrollToDownload}
                 aria-label="Download for Windows"
-                className="p-2 text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm"
+                className="p-2 text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm cursor-pointer"
               >
                 <Download className="w-4 h-4" />
-              </button>
+              </a>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 text-slate-700 hover:text-black hover:bg-black/5 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
@@ -126,16 +127,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPrivacy }) => {
             </button>
           </div>
           <div className="pt-2 border-t border-black/10">
-            <button
+            <a
+              href="#download"
               onClick={(e) => {
                 setMobileMenuOpen(false);
-                handleDownload(e);
+                scrollToDownload(e);
               }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-lg shadow-blue-600/20"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-lg shadow-blue-600/20 cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>Download for Windows (10 & 11)</span>
-            </button>
+            </a>
           </div>
         </div>
       )}
